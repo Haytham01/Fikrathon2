@@ -19,8 +19,8 @@ class Problem {
 
     static {
         try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream("harthiya.csv"), "UTF-8"));
-            bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("outputH.csv"), "UTF-8"));
+            br = new BufferedReader(new InputStreamReader(new FileInputStream("zayona.csv"), "UTF-8"));
+            bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("outputZ.csv"), "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -76,9 +76,13 @@ class Problem {
 
 
         for (int i = 0; i < motors.length; i++) {
-            if (motors[i] == null) bw.write(0 + "\n");
+            if (motors[i] == null) bw.write(String.valueOf(0));
             else {
                 motors[i].outputOrders();
+            }
+
+            if(i != motors.length-1){
+                bw.write("\n");
             }
         }
 
@@ -148,7 +152,7 @@ class Motor {
             Problem.bw.write(orders.get(i).orderNumber + ",");
         }
 
-        Problem.bw.write(orders.get(orders.size() - 1).orderNumber + "\n");
+        Problem.bw.write(orders.get(orders.size() - 1).orderNumber + "");
     }
 
     public int findNearestValidOrder(ArrayList<Order> orders) {
@@ -181,7 +185,7 @@ class Motor {
             }
         }
 
-        if (isOrderValid(orders.get(nearestOrderIndex))) return nearestOrderIndex;
+        if (isDeadlineValid(orders.get(nearestOrderIndex))) return nearestOrderIndex;
         else return -1;
     }
 }
